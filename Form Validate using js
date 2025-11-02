@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Form Validate</title>
+</head>
+<body>
+<h1>DEM</h1>
+<form onsubmit="return validateForm()">
+<label>Username</label>
+<input type="text" name="user" required><br>
+<legend>Gender:</legend>
+<label>Male</label>
+<input type="radio" name="gender">
+<label>Female</label>
+<input type="radio" name="gender" required><br></p>
+<label>Email</label>
+<input type="text" id="email"><br><br>
+
+<label>Phone:</label>
+<input type="text" id="phone"><br><br>
+
+<label>Password:</label>
+<input type="password" id="password"><br><br>
+
+<label>Confirm Password:</label>
+<input type="password" id="confirmpassword">
+
+<span id="message" style="color:red; display:block; margin-top:10px;"></span>
+<button type="submit">Submit</button>
+</form>
+
+<script>
+function validateForm() {
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let password = document.getElementById("password").value;
+    let confirmpassword = document.getElementById("confirmpassword").value;
+    let message = document.getElementById("message");
+
+    let emailPattern = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
+    let phonePattern = /^([0-9]{3})?[ ]?([0-9]{3})?[ ]?([0-9]{4})$/;
+
+    if (email === "" || !emailPattern.test(email)) {
+        message.textContent = "Please enter a valid email address!";
+        return false;
+    }
+
+    if (phone === "" || !phonePattern.test(phone)) {
+        message.textContent = "Please enter a valid phone number!";
+        return false;
+    }
+
+    if (password === "" || confirmpassword === "") {
+        message.textContent = "Both password fields are required!";
+        return false;
+    }
+
+    if (password !== confirmpassword) {
+        message.textContent = "Passwords do not match!";
+        return false;
+    }
+
+    if (password.length < 6) {
+        message.textContent = "Password must be at least 6 characters!";
+        return false;
+    }
+
+    message.style.color = "green";
+    message.textContent = "Form is valid!";
+      return false;
+}
+</script>
+</body>
+</html>
