@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Factorial of a number</title>
+</head>
+
+<body>
+    <p id="demo"></p>
+
+    <script>
+        const num = parseInt(prompt("Enter Number:"));
+        let f = 1;
+
+        if (num == 0) {
+            document.getElementById("demo").innerHTML = 
+                "Factorial of 0 is " + 1;
+        }
+        else {
+            for (let i = 1; i <= num; i++) {
+                f = f * i;
+            }
+            document.getElementById("demo").innerHTML = 
+                "Factorial of " + num + " is " + f;
+        }
+    </script>
+</body>
+</html>
