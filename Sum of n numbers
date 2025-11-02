@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Sum of n numbers</title>
+</head>
+
+<body>
+    <p id="demo"></p>
+
+    <script>
+        const n = parseInt(prompt("Enter limit:"));
+        let sum = 0;
+
+        for (let i = 0; i <= n; i++) {
+            sum = sum + i;
+        }
+
+        document.getElementById("demo").innerHTML = 
+            "Sum of the numbers 1 to " + n + " is " + sum;
+    </script>
+</body>
+</html>
