@@ -1,0 +1,24 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Change Background Color on Click</title>
+</head>
+
+<body>
+    <input type="button" id="p1" value="Change Background">
+
+    <script>
+        const colors = ['red', 'green', 'blue', 'purple', 'cyan', 'yellow', 'crimson', 'lightgreen', 'powderblue'];
+        let index = 0;
+
+        function changeBackground() {
+            document.body.style.backgroundColor = colors[index];
+            index = (index + 1) % colors.length;
+        }
+
+        const b = document.getElementById('p1');
+        b.addEventListener("click", changeBackground);
+    </script>
+</body>
+</html>
