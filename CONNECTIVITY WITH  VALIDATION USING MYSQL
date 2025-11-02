@@ -1,0 +1,173 @@
+αLpH1n
+alphinbiso
+In voice
+
+[10:47 PM]Emil: ashik  enthonade cheythu vechekane
+[5:10 PM]Emil:
+Forwarded
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient Registration</title>
+</head>
+<body>
+Expand
+message.txt
+5 KB
+Lab  •  Friday
+[5:14 PM]αLpH1n
+:
+[5:17 PM]Emil:
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patient Registration</title>
+</head>
+<body>
+ <form method="POST">
+ <table>
+ <tr>
+    <td><label>Patient Name:</label></td>
+	<td><input type="text" name="name"></td>
+</tr>
+<tr>
+    <td><label>Age:</label></td>
+	<td><input type="number" name="age"></td>
+</tr>
+<tr>
+	<td><label>Gender:</label></td>
+	<td><input type="radio" id="m" name="gender" value="male" >Male</td>
+    <td><input type="radio" id="f" name="gender" value="female">Female</td>
+    <td><input type="radio" id="oth" name="gender" value="other">Other</td>
+</tr>
+<tr>
+	<td><label>Address:</label></td>
+	<td><textarea rows="5" cols="28" style="align-right:30px" name="address"></textarea></td>
+</tr>
+<tr>
+	<td><label>Contact:</label></td>
+	<td><input type="text" name="contact"></td>
+</tr>
+<tr>
+	<td><label>Disease:</label></td>
+	<td><input type="text" name="disease"></td>
+</tr>
+<tr>
+	<td><input type="submit" name="submit" style="margin-left:100%" value="Register"></td>
+</tr>
+</table>
+ </form>
+    <h2>Search with name</h2>
+        <form method="post" action="">
+            <input type="text" name="search_query" placeholder="Search Patient">
+            <input type="submit" name="ser" value="Search">
+</form>
+<?php 
+if(isset($_POST['submit']))
+{
+$name=$_POST['name'];
+$age=$_POST['age'];
+$gender=$_POST['gender'];
+$address=$_POST['address']; 
+$contact=$_POST['contact'];
+$disease=$_POST['disease']; 
+
+if(!preg_match("/^[a-zA-Z ]*$/",$name))
+{
+    echo "Only letters and white space allowed in name";
+    return;
+}
+if(!preg_match("/^[0-9]*$/",$age))
+{
+    echo "Only numbers are allowed in age";
+    return;
+}
+if(is_null($gender))
+{
+    echo "Gender not selected";
+    return;     
+}
+if(is_null($address))
+{
+    echo "aaddress is empty";
+    return;     
+}
+if(!preg_match("/^\d{10}$/",$contact))
+{
+    echo "Only numbers are allowed in contact";
+    return;
+}
+if(!preg_match("/^[a-zA-Z ]*$/",$disease))
+{
+    echo "Only letters and white space allowed in disease";
+    return;
+}
+
+ echo "All inputs are valid";
+}
+// ---------- Database Connection ----------
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+$conn = new mysqli($servername, $username,$password);
+if ($conn->connect_error) {
+  die("<br>Connection failed: " .$conn->connect_error);
+}
+else
+{
+  	 echo "<br>connection established successfully";
+... (86 lines left)
+Collapse
+message.txt
+5 KB
+[5:18 PM]Emil:
+Attachment file type: unknown
+message
+4.89 KB
+[5:35 PM]αLpH1n
+: manasilayo
+[5:35 PM]Emil: full onnum manasilayilla
+[5:35 PM]Emil: enthokeyo
+[5:35 PM]αLpH1n
+: ith kanditt entho pole
+[5:36 PM]Emil: sathyam
+[10:05 AM]Emil: <tr>
+                <td><label>gender/label></td>
+                <td><input type="radio"  id="m" name="gender" value="male">male</td>
+                <td><input type="radio"  id="f" name="gender" value="female">female</td>
+                <td><input type="radio"  id="o" name="gender" value="other">other</td>
+</tr>
+[10:09 AM]αLpH1n
+:
+Image
+αLpH1n
+ started a call that lasted 10 minutes. — 10:14 AM
+αLpH1n
+ started a call that lasted 15 minutes. — 10:47 AM
+[11:02 AM] 
+APP
+ Clyde: It appears you've been by yourself in this call for more than 3 minutes. The bandwidth patrol has asked me to disconnect you to save bandwidth. That stuff doesn't grow on trees!
+Only you can see this • Dismiss message
+[11:49 AM]Emil: eda sett ayi
+αLpH1n
+ started a call that lasted 19 minutes. — 12:08 PM
+αLpH1n
+ started a call that lasted 2 minutes. — 12:32 PM
+You missed a call from 
+Emil
+ that lasted a few seconds. — 4:34 PM
+αLpH1n
+ started a call that lasted 2 hours. — 4:34 PM
+[4:35 PM] 
+APP
+ Exoracer:
+Game Invitation
+Exoracer
+Game ended. Start a new one?
+
+Play
+﻿
+Emil
+emil_georg3
