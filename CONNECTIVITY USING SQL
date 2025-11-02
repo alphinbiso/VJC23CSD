@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Information</title>
+</head>
+<body>
+    <h1>VEHICLE INFORMATION !</h1>
+    <form method="post">
+    <table>
+        <tr>
+            <th>CAR ID:</th>
+            <td><input type="text" name="carid"></td>
+        </tr>
+        <tr><td><br></td></tr>
+
+        <tr>
+            <th>OWNER NAME:</th>
+            <td><input type="text" name="owner"></td>
+        </tr>
+        <tr><td><br></td></tr>
+
+        <tr>
+            <th>REGISTRATION NUMBER:</th>
+            <td><input type="text" name="reg"></td>
+        </tr>
+        <tr><td><br></td></tr>
+
+        <tr>
+            <th>OWNERSHIP NUMBER:</th>
+            <td><input type="text" name="ownno"></td>
+        </tr>
+        <tr><td><br></td></tr>
+
+        <tr>
+            <th>COLOR:</th>
+            <td><input type="text" name="color"></td>
+        </tr>
+        <tr><td><br></td></tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" name="submit" value="Add" style="font-size:100%">
+                <input type="submit" name="display" value="Display" style="font-size:100%">
+            </td>
+        </tr>
+    </table>
+    </form>
+
+    <hr>
+
+    <h1>UPDATE VEHICLE COLOR !</h1>
+    <form method="post">
+    <table>
+        <tr>
+            <th>CAR ID:</th>
+            <td><input type="text" name="carid1"></td>
+        </tr>
+
+        <tr>
+            <th>NEW COLOR:</th>
+            <td><input type="text" name="color1"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" name="update" value="Update" style="font-size:100%"></td>
+        </tr>
+    </table>
+    </form>
+
+    <hr>
+
+    <h1>SEARCH VEHICLE !</h1>
+    <form method="post">
+    <table>
+        <tr>
+            <th>Enter Vehicle Name (Owner or Reg No):</th>
+            <td><input type="text" name="search_query"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" name="ser" value="Search" style="font-size:100%"></td>
+        </tr>
+    </table>
+    </form>
+
+    <hr>
+
+    <h1>DELETE VEHICLE !</h1>
+    <form method="post">
+    <table>
+        <tr>
+            <th>Enter CAR ID to Delete:</th>
+            <td><input type="text" name="delete_query"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" name="del" value="Delete" style="font-size:100%"></td>
+        </tr>
+    </table>
+    </form>
+
+</body>
+</html>
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+
+$conn = new mysqli($servername, $username, $password);
+if ($conn->connect_error) {
+    die("Connection Error: " . $conn->connect_error);
+} else {
+    echo("<br>Connection successful<br>");
+}
+
+
+$sql = "CREATE DATABASE IF NOT EXISTS VEHICLEDB";
+if ($conn->query($sql) === TRUE) {
+    echo("<br>Database ready");
+} else {
+    echo("<br>Database creation error: " . $conn->connect_error);
+}
+
+
+mysqli_select_db($conn, "vehicledb");
+
+
+$sql = "CREATE TABLE IF NOT EXISTS VEHICLE(
+    ID INT(10) AUTO_INCREMENT PRIMARY KEY,
+    CAR_ID VARCHAR(30) NOT NULL,
+    OWNER_NAME VARCHAR(50) NOT NULL,
+    REGISTRATION_NO VARCHAR(50) NOT NULL,
+    OWNERSHIP_NO VARCHAR(50) NOT NULL,
+    COLOR VARCHAR(30) NOT NULL
+)";
+if ($conn->query($sql) === TRUE) {
+    echo("<br>Table ready");
+} else {
+    echo("<br>Table creation error: " . $conn->connect_error);
+}
+
+
+if (isset($_POST['submit'])) {
+    $carid = $_POST['carid'];
+    $owner = $_POST['owner'];
+    $reg = $_POST['reg'];
+    $ownno = $_POST['ownno'];
+    $color = $_POST['color'];
+
+    $sql = "INSERT INTO VEHICLE(CAR_ID, OWNER_NAME, REGISTRATION_NO, OWNERSHIP_NO, COLOR)
+            VALUES('$carid', '$owner', '$reg', '$ownno', '$color')";
+    if ($conn->query($sql) === TRUE) {
+        echo("<br>Values inserted successfully");
+    } else {
+        echo("<br>Insertion error: " . $conn->error);
+    }
+}
+
+
+if (isset($_POST['display'])) {
+    $sql = "SELECT * FROM VEHICLE";
+    $r = $conn->query($sql);
+
+    if ($r->num_rows > 0) {
+        echo "<h2>Vehicle Records</h2>";
+        echo "<table border='2' cellpadding='10'>
+        <tr>
+            <th>ID</th>
+            <th>CAR ID</th>
+            <th>OWNER NAME</th>
+            <th>REGISTRATION NO</th>
+            <th>OWNERSHIP NO</th>
+            <th>COLOR</th>
+        </tr>";
+
+        while ($row = $r->fetch_assoc()) {
+            echo "<tr>
+                <td>".$row['ID']."</td>
+                <td>".$row['CAR_ID']."</td>
+                <td>".$row['OWNER_NAME']."</td>
+                <td>".$row['REGISTRATION_NO']."</td>
+                <td>".$row['OWNERSHIP_NO']."</td>
+                <td>".$row['COLOR']."</td>
+            </tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "<h3>No Records Found!</h3>";
+    }
+}
+
+
+if (isset($_POST['update'])) {
+    $carid1 = $_POST['carid1'];
+    $color1 = $_POST['color1'];
+
+    $sql = "UPDATE VEHICLE SET COLOR='$color1' WHERE CAR_ID='$carid1'";
+    if ($conn->query($sql) === TRUE) {
+        echo("<br>Updated successfully");
+    } else {
+        echo("<br>Updation error: " . $conn->error);
+    }
+}
+
+
+if (isset($_POST['ser'])) {
+    $search_query = $_POST['search_query'];
+    $sql = "SELECT * FROM VEHICLE WHERE OWNER_NAME LIKE '%$search_query%' 
+            OR REGISTRATION_NO LIKE '%$search_query%' OR CAR_ID LIKE '%$search_query%'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        echo "<h2>Search Results</h2>";
+        echo "<table border='1' cellpadding='8'>
+        <tr><th>ID</th><th>CAR ID</th><th>OWNER NAME</th><th>REGISTRATION NO</th><th>OWNERSHIP NO</th><th>COLOR</th></tr>";
+        while($row = $result->fetch_assoc()) {
+            echo "<tr><td>".$row["ID"]."</td><td>".$row["CAR_ID"]."</td><td>".$row["OWNER_NAME"]."</td><td>".$row["REGISTRATION_NO"]."</td><td>".$row["OWNERSHIP_NO"]."</td><td>".$row["COLOR"]."</td></tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "<h3>No Vehicle found matching your search.</h3>";
+    }
+}
+
+
+if (isset($_POST['del'])) {
+    $delete_query = $_POST['delete_query'];
+    $sql = "DELETE FROM VEHICLE WHERE CAR_ID='$delete_query'";
+    if ($conn->query($sql) === TRUE) {
+        echo "<br>Deletion successful.<br>";
+       
+        $sql = "SELECT * FROM VEHICLE";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo "<h2>Updated Vehicle List</h2>";
+            echo "<table border='1' cellpadding='8'>
+            <tr><th>ID</th><th>CAR ID</th><th>OWNER NAME</th><th>REGISTRATION NO</th><th>OWNERSHIP NO</th><th>COLOR</th></tr>";
+            while($row = $result->fetch_assoc()) {
+                echo "<tr><td>".$row["ID"]."</td><td>".$row["CAR_ID"]."</td><td>".$row["OWNER_NAME"]."</td><td>".$row["REGISTRATION_NO"]."</td><td>".$row["OWNERSHIP_NO"]."</td><td>".$row["COLOR"]."</td></tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "<h3>No Vehicles left in database.</h3>";
+        }
+    } else {
+        echo "<br>Deletion error: " . $conn->error;
+    }
+}
+?>
