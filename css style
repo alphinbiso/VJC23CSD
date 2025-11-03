@@ -1,0 +1,17 @@
+body{
+    background-color:beige;
+    font-weight:bold;
+    color:blue;
+    
+    
+}
+h1{
+    text-align:center;
+    color:red;
+}
+table{
+    margin:auto;
+    background-color:pink;
+    width:500px;
+    height:300px;
+}
