@@ -1,23 +1,3 @@
-αLpH1n
-alphinbiso
-In voice
-
-[10:47 PM]Emil: ashik  enthonade cheythu vechekane
-[5:10 PM]Emil:
-Forwarded
-<!DOCTYPE html>
-<html>
-<head>
-<title>Patient Registration</title>
-</head>
-<body>
-Expand
-message.txt
-5 KB
-Lab  •  Friday
-[5:14 PM]αLpH1n
-:
-[5:17 PM]Emil:
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,56 +98,89 @@ if ($conn->connect_error) {
 else
 {
   	 echo "<br>connection established successfully";
-... (86 lines left)
-Collapse
-message.txt
-5 KB
-[5:18 PM]Emil:
-Attachment file type: unknown
-message
-4.89 KB
-[5:35 PM]αLpH1n
-: manasilayo
-[5:35 PM]Emil: full onnum manasilayilla
-[5:35 PM]Emil: enthokeyo
-[5:35 PM]αLpH1n
-: ith kanditt entho pole
-[5:36 PM]Emil: sathyam
-[10:05 AM]Emil: <tr>
-                <td><label>gender/label></td>
-                <td><input type="radio"  id="m" name="gender" value="male">male</td>
-                <td><input type="radio"  id="f" name="gender" value="female">female</td>
-                <td><input type="radio"  id="o" name="gender" value="other">other</td>
-</tr>
-[10:09 AM]αLpH1n
-:
-Image
-αLpH1n
- started a call that lasted 10 minutes. — 10:14 AM
-αLpH1n
- started a call that lasted 15 minutes. — 10:47 AM
-[11:02 AM] 
-APP
- Clyde: It appears you've been by yourself in this call for more than 3 minutes. The bandwidth patrol has asked me to disconnect you to save bandwidth. That stuff doesn't grow on trees!
-Only you can see this • Dismiss message
-[11:49 AM]Emil: eda sett ayi
-αLpH1n
- started a call that lasted 19 minutes. — 12:08 PM
-αLpH1n
- started a call that lasted 2 minutes. — 12:32 PM
-You missed a call from 
-Emil
- that lasted a few seconds. — 4:34 PM
-αLpH1n
- started a call that lasted 2 hours. — 4:34 PM
-[4:35 PM] 
-APP
- Exoracer:
-Game Invitation
-Exoracer
-Game ended. Start a new one?
+	
+}
+ $sql = "CREATE DATABASE IF NOT EXISTS PatientDB";
+if($conn->query($sql)===true)
+{
+	echo"<br>database created successfully";
 
-Play
-﻿
-Emil
-emil_georg3
+}
+else
+	echo"<br>error occured".$conn->connect_error;
+mysqli_select_db($conn,"PatientDB");
+$sql = "CREATE TABLE IF NOT EXISTS Patients(
+    patient_id INT(6) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    age INT(3) NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    contact VARCHAR(15) NOT NULL,
+    disease VARCHAR(50) NOT NULL
+)";
+
+if($conn->query($sql)===TRUE)
+{
+	echo"<br>Table created successfully";
+
+}
+else
+{
+	echo"<br>error occured".$conn->connect_error;
+}
+if(isset($_POST['submit']))
+{ $name=$_POST['name'];
+$age=$_POST['age'];
+$gender=$_POST['gender'];
+$address=$_POST['address']; 
+$contact=$_POST['contact'];
+$disease=$_POST['disease']; 
+  
+$sql = "INSERT INTO Patients (name, age, gender, address, contact, disease)
+VALUES ('$name', '$age', '$gender', '$address', '$contact', '$disease')";
+if($conn->query($sql)===TRUE)
+{
+    echo"<br>Values inserted created successfully";
+
+}
+else
+{
+    echo"<br>error occured while inserting".$conn->connect_error;
+}
+}
+
+if(isset($_POST['ser']))
+{
+$search=$_POST['search_query'];   
+$sql="SELECT * FROM Patients WHERE name LIKE '%$search%'";
+$result=$conn->query($sql); 
+ if ($result->num_rows>0) {
+    echo "<table border='2' cellpadding='10'>
+            <tr>
+              <th>Patient Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Address</th>
+              <th>Contact</th>
+              <th>Disease</th>
+            </tr>";
+    while ($row = $result->fetch_assoc()) {
+      echo "<tr>
+              <td>".$row['name']."</td>
+              <td>".$row['age']."</td>
+              <td>".$row['gender']."</td>
+              <td>".$row['address']."</td>
+              <td>".$row['contact']."</td>
+              <td>".$row['disease']."</td>
+            </tr>";
+    }
+    echo "</table>";
+  } else {
+    echo "<h3>zero results<br></h3>";
+  }
+  
+}
+$conn->close();
+?>
+</body>
+</html>
